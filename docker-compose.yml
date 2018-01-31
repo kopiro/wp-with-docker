@@ -1,0 +1,25 @@
+version: '3'
+
+services:
+  app:
+    build:
+      context: .
+      dockerfile: ./Dockerfile
+    restart: on-failure
+    ports:
+    - 80:80
+    volumes:
+    - ./app:/app
+    env_file:
+    - .env
+
+  db:
+    image: mysql
+    restart: on-failure
+    volumes:
+    - db-data:/var/lib/mysql:rw
+    env_file:
+    - .env
+
+volumes:
+  db-data:
